@@ -1,5 +1,7 @@
 import pandas as pd
 from ms import model
+import json
+from operator import index
 
 
 def predict(X, model):
@@ -14,8 +16,21 @@ def get_model_response(json_data):
         label = "M"
     else:
         label = "B"
+
     return {
-        'status': 200,
-        'label': label,
-        'prediction': int(prediction)
-    }
+        'status' : 200,
+        'label' : label,
+        'prediction' : int(prediction)
+        }
+
+
+def get_model_response1(json_data):
+    X = pd.DataFrame(json_data, index=[0])
+    prediction1 = predict(X, model)
+    if prediction1 == 1:
+        label1 = "Patient has breast cancer as per sample dataset"
+    else:
+        label1 = "Patient has no breast cancer as per sample dataset"
+
+    return '{}'.format(label1)
+ 
